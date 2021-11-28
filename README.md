@@ -1,1 +1,5 @@
-# polish-historic-events
+# Polish historical events - module for Webtrees
+
+## Requirements
+
+## Development
