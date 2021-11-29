@@ -26,3 +26,11 @@ Once the module is enabled, the **Historic events** should appear in **Facts and
 ## Development
 
 Events are *hardcoded* in `module.php`. They are in [GEDCOM](https://www.gedcom.org/) format. To make it easier to edit the events, an auxiliary ODS file can be found in `events/historia_polski.ods`. This file can be edited using e.g. LibreOffice. All changes should be done in the first tab *Dane*. The result can be copied from automatically generated content in the *Wynik* tab. Tab *Pola* is auxiliary is not meant to be edited manually.
+
+A release package can be generated manually but using an [Apache Ant](https://ant.apache.org/) build script is preferable. Once you have Ant installed, simply run:
+
+```shell
+ant clean release
+```
+
+The release package will be generated in `release` folder.
