@@ -25,7 +25,11 @@ Once the module is enabled, the **Historic events** should appear in **Facts and
 
 ## Development
 
+### Formatting events
+
 Events are *hardcoded* in `module.php`. They are in [GEDCOM](https://www.gedcom.org/) format. To make it easier to edit the events, an auxiliary ODS file can be found in `events/historia_polski.ods`. This file can be edited using e.g. LibreOffice. All changes should be done in the first tab *Dane*. The result can be copied from automatically generated content in the *Wynik* tab. Tab *Pola* is auxiliary is not meant to be edited manually.
+
+### Building release
 
 A release package can be generated manually but using an [Apache Ant](https://ant.apache.org/) build script is preferable. Once you have Ant installed, simply run:
 
@@ -34,3 +38,19 @@ ant clean release
 ```
 
 The release package will be generated in `release` folder.
+
+### Test
+
+To test the module, you can install it manually in a Webtrees installation or use a dockerized version.
+
+```shell
+docker-compose up -d
+```
+
+**Known issue** - when running for the first time, start the database first, wait until fully loaded and then start Webtrees container.
+
+```shell
+docker-compose up -d db
+# wait until db is fully up and running
+docker-compose up -d webtrees
+```
