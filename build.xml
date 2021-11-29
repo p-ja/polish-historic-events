@@ -1,0 +1,21 @@
+<project name="polish-historic-events" default="release" basedir=".">
+    <description>Polish historical events for Webtrees</description>
+    <property name="src" location="src" />
+    <property name="release" location="release" />
+
+    <target name="init">
+        <mkdir dir="${release}" />
+    </target>
+
+    <target name="release" depends="init" description="generate the release package">
+        <zip destfile="${release}/polish-historic-events.zip">
+            <fileset dir="." includes="LICENSE"/>
+            <fileset dir="." includes="README.md"/>
+            <fileset dir="." includes="module.php"/>
+        </zip>
+    </target>
+
+    <target name="clean" description="clean up">
+        <delete dir="${release}" />
+    </target>
+</project>

@@ -1,0 +1,51 @@
+version: "3.5"
+    
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-webtreesR00T}
+      MYSQL_USER: ${MYSQL_USER:-webtrees}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-webtrees}
+      MYSQL_DATABASE: webtrees
+    
+  webtrees:
+    depends_on:
+      - db
+    image: dtjs48jkt/webtrees:v2.0.17-0
+    volumes:
+      - ./webtrees/data:/var/www/html/data
+      - ./webtrees/modules_v4:/var/www/html/modules_v4
+      - ./module.php:/var/www/html/modules_v4/polish-historic-events/module.php
+    ports:
+      - "8088:80"
+    restart: always
+    environment:
+      PORT: 80
+      GROUP_ID: 999
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: webtrees
+      DB_USER: ${MYSQL_USER:-webtrees}
+      DB_PASSWORD: ${MYSQL_PASSWORD:-webtrees}
+      WT_ADMIN: ${WT_ADMIN:-admin}
+      WT_ADMINPW: ${WT_ADMINPW:-admin123}
+
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin:5.1
+    restart: always
+    ports:
+      - "8306:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-webtreesR00T}
+      MYSQL_USER: ${MYSQL_USER:-webtrees}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-webtrees}
+
+volumes:
+  db_data: {}
