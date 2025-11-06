@@ -96,7 +96,7 @@ return new class extends AbstractModule implements ModuleCustomInterface, Module
     /**
      * Based on: https://pl.wikipedia.org/wiki/Kalendarium_historii_Polski
      */
-    public function historicEventsAll(): Collection
+    public function historicEventsAll(string $language_tag): Collection
     {
         return new Collection([
             "1 EVEN Chrzest Polski\n2 TYPE Historia Polski\n2 DATE  966\n2 NOTE https://pl.wikipedia.org/wiki/Chrzest_Polski\n",

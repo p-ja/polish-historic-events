@@ -1,0 +1,68 @@
+name: Manual Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      new_version:
+        description: 'New version (e.g., 1.2.0)'
+        required: true
+      release_name:
+        description: 'Release name'
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Check if tag already exists
+        run: |
+          if git rev-parse "v${{ github.event.inputs.new_version }}" >/dev/null 2>&1; then
+            echo "Error: Tag v${{ github.event.inputs.new_version }} already exists. Releases are immutable."
+            exit 1
+          fi
+
+      - name: Set up PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - name: Set up Apache Ant
+        run: sudo apt-get update && sudo apt-get install -y ant
+
+      - name: Configure Git
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: Update Version Files
+        run: |
+          # Update CUSTOM_VERSION in module.php
+          sed -i "s/public const CUSTOM_VERSION = '[^']*';/public const CUSTOM_VERSION = '${{ github.event.inputs.new_version }}';/" module.php
+
+          # Update latest-version.txt
+          echo "${{ github.event.inputs.new_version }}" > latest-version.txt
+
+          git add module.php latest-version.txt
+          git diff --staged --quiet || git commit -m "Bump version to ${{ github.event.inputs.new_version }}"
+          git push origin main
+
+      - name: Build with Ant
+        run: ant clean release
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ github.event.inputs.new_version }}
+          name: ${{ github.event.inputs.release_name }}
+          files: release/polish-historic-events.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
