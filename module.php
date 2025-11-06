@@ -37,7 +37,7 @@ return new class extends AbstractModule implements ModuleCustomInterface, Module
     public const CUSTOM_TITLE = 'Historia Polski 🇵🇱';
     public const CUSTOM_AUTHOR = 'p-ja';
     public const CUSTOM_WEBSITE = 'https://github.com/p-ja/polish-historic-events';
-    public const CUSTOM_VERSION = '0.0.1';
+    public const CUSTOM_VERSION = '0.1.0';
     public const CUSTOM_LAST = 'https://raw.githubusercontent.com/p-ja/polish-historic-events/main/latest-version.txt';
 
     public function __construct()
