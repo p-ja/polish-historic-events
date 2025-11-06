@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+      - 'bugfix/**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - name: Validate PHP syntax
+        run: |
+          find . -name "*.php" -type f -print0 | xargs -0 -n1 php -l
+
+      - name: Set up Apache Ant
+        run: sudo apt-get update && sudo apt-get install -y ant
+
+      - name: Build with Ant
+        run: ant clean release
+
+      - name: Verify build artifacts
+        run: |
+          if [ ! -f release/polish-historic-events.zip ]; then
+            echo "Error: ZIP file not created"
+            exit 1
+          fi
+          echo "Build artifacts created successfully"
+          ls -lh release/

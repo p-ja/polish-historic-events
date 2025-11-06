@@ -9,7 +9,14 @@ It is based on [Kalendarium historii Polski](https://pl.wikipedia.org/wiki/Kalen
 
 Same as Webtrees [system requirements](https://github.com/fisharebest/webtrees#system-requirements).
 
-Tested with 2.0.17 version of webtrees.
+### Compatibility
+
+The plugin *may* work with different versions, but only the versions in the table below were tested:
+
+| Polish historical events version                                            | Webtrees version |
+| --------------------------------------------------------------------------: | ---------------: |
+|                                                                       0.1.0 |            2.2.4 |
+| [0.0.1](https://github.com/p-ja/polish-historic-events/releases/tag/v0.0.1) |           2.0.17 |
 
 ## Installation
 
@@ -37,7 +44,7 @@ A release package can be generated manually but using an [Apache Ant](https://an
 ant clean release
 ```
 
-The release package will be generated in `release` folder.
+The release package will be generated in the `release` folder.
 
 ### Test
 
@@ -47,10 +54,7 @@ To test the module, you can install it manually in a Webtrees installation or us
 docker-compose up -d
 ```
 
-**Known issue** - when running for the first time, start the database first, wait until fully loaded and then start Webtrees container.
+https://localhost:8088/ (it uses self-signed certificate, so your browser may complain)
 
-```shell
-docker-compose up -d db
-# wait until db is fully up and running
-docker-compose up -d webtrees
-```
+**Login:** admin
+**Password:** admin123
