@@ -290,6 +290,8 @@ return new class extends AbstractModule implements ModuleCustomInterface, Module
             "1 EVEN II tura wyborów prezydenckich. Bronisław Komorowski został wybrany prezydentem Rzeczypospolitej Polskiej\n2 TYPE Historia Polski\n2 DATE  4 JUL 2010\n",
             "1 EVEN II tura wyborów prezydenckich wygrał Andrzej Duda\n2 TYPE Historia Polski\n2 DATE  24 MAY 2015\n",
             "1 EVEN II tura wyborów prezydenckich, prezydentem Rzeczypospolitej Polski został ponownie Andrzej Duda\n2 TYPE Historia Polski\n2 DATE  12 JUL 2020\n",
+            "1 EVEN II tura wyborów prezydenckich, prezydentem Rzeczypospolitej Polskiej został Karol Nawrocki\n2 TYPE Historia Polski\n2 DATE  1 JUN 2025\n",
+            "1 EVEN Sławosz Uznański-Wiśniewski został drugim Polakiem w kosmosie i pierwszym na Międzynarodowej Stacji Kosmicznej\n2 TYPE Historia Polski\n2 DATE  25 JUN 2025\n",
         ]);
     }
 
